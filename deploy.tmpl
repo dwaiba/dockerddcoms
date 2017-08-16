@@ -47,7 +47,7 @@
             }
         },
         "managerCount": {
-            "defaultValue": 1,
+            "defaultValue": 3,
             "allowedValues": [
                 1,
                 3,
@@ -56,7 +56,7 @@
             "type": "Int"
         },
         "managerVMSize": {
-            "defaultValue": "Standard_D2_v2",
+            "defaultValue": "Standard_DS3",
             "allowedValues": [
                 "Standard_A0",
                 "Standard_A1",
@@ -112,7 +112,7 @@
             }
         },
         "sshPublicKey": {
-            "type": "String",
+            "type": "SecureString",
             "metadata": {
                 "description": "The SSH public key used to authenticate with the created swarm. Usually available in $HOME/.ssh/id_rsa.pub file"
             }
@@ -125,7 +125,7 @@
             }
         },
         "workerCount": {
-            "defaultValue": 1,
+            "defaultValue": 3,
             "allowedValues": [
                 1,
                 2,
