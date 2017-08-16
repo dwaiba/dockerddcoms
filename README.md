@@ -1,3 +1,20 @@
+---
+title: Deploy DDC on Azure with OMS Injection
+description: Learn how to deploy Docker Datacenter with one click, using an ARM (ARM Resource Manager) Template.
+keywords: docker, datacenter, install, orchestration, management, azure, swarm, OMS
+---
+
+
+Table of Contents
+=================
+
+
+      * [Deploy and Visualize](#deploy-and-visualize)
+      * [Prerequisites](#Prerequisites)
+      * [Usage of Operational Management Suite](#usage-of-operational-management-suite)
+      * [N Note on Docker EE and Docker CE for Azure](#note-on-docker-ee-and-docker-ce-for-azure)
+
+
 #### Deploy and Visualize
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fdwaiba%2Fdockerddcoms%2Fmaster%2Fdeploy.tmpl" target="_blank"><img alt="Deploy to Azure" src="https://raw.githubusercontent.com/dwaiba/dockerddcoms/master/dockerce4azure.png" /></a>
