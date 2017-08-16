@@ -8,7 +8,7 @@ keywords: docker, datacenter, install, orchestration, management, azure, swarm, 
 Table of Contents
 =================
 * [Deploy and Visualize](#deploy-and-visualize)
-* [Prerequisites](#Prerequisites)
+* [Prerequisites](#prerequisites)
 * [Usage of Operational Management Suite](#usage-of-operational-management-suite)
 * [Note on Docker EE and Docker CE for Azure](#note-on-docker-ee-and-docker-ce-for-azure)
 
