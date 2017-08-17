@@ -124,6 +124,27 @@
                 "description": "Define how the swarm resources should be named."
             }
         },
+        "virtualNetworkName": {
+            "type": "string",
+            "defaultValue": "dockerswarm-vnet",
+            "metadata": {
+                "description": "The Virtual Network Name, please put exisiting VNet name here"
+            }
+        },
+        "subnetName": {
+            "type": "string",
+            "defaultValue": "dockerswarm-subnet",
+            "metadata": {
+                "description": "Name of the new subnet to add to new Virtual Network or exiting one"
+            }
+        },
+        "subnetPrefix": {
+            "type": "string",
+            "defaultValue": "172.31.0.0/24",
+            "metadata": {
+                "description": "The Subnet Prefix, please change CIDR namespace for deploying to existing Virtual Network "
+            }
+        },
         "workerCount": {
             "defaultValue": 3,
             "allowedValues": [
@@ -283,8 +304,8 @@
         "storageAccountDNSSuffix": ".blob.core.windows.net",
         "storageAccountSuffix": "docker",
         "storageLocation": "[resourceGroup().location]",
-        "subnetName": "[concat(variables('basePrefix'), '-subnet')]",
-        "subnetPrefix": "172.31.0.0/24",
+        "subnetName": "[parameters('subnetName')]",
+        "subnetPrefix": "[parameters('subnetPrefix')]",
         "subnetRef": "[concat(variables('vnetID'),'/subnets/', variables('subnetName'))]",
         "swarmInfoStorageAccount": "[concat(variables('uniqueStringArray')[0], variables('storageAccountSuffix'))]",
         "swarmInfoTable": "swarminfo",
@@ -299,7 +320,7 @@
             "[concat(uniqueString(concat(resourceGroup().id, variables('storageAccountSuffix'), '4')))]"
         ],
         "vhdContainerName": "dockervhd",
-        "virtualNetworkName": "[concat(variables('basePrefix'), '-vnet')]",
+        "virtualNetworkName": "[parameters('virtualNetworkName')]",
         "vmssManagersName": "swarm-manager-vmss",
         "vmssName": "swarm-worker-vmss",
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
