@@ -373,8 +373,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks",
-            "resourceGroupName": "[parameters('virtualNetworkResourceGroup')]",
-            "name": "[variables('virtualNetworkName')]",
+            "resourceGroup": "[parameters('virtualNetworkResourceGroup')]",
             "location": "[parameters('virtualNetworkResourceGroup').location]",
             "apiVersion": "[variables('apiVersion')]",
             "tags": {
