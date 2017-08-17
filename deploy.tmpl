@@ -310,6 +310,8 @@
         "sshRSAPublicKey": "[parameters('sshPublicKey')]",
         "storageAccountDNSSuffix": ".blob.core.windows.net",
         "storageAccountSuffix": "docker",
+        "virtualNetworkName": "[parameters('virtualNetworkName')]",
+        "vnetID": "[resourceId(parameters('virtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
         "storageLocation": "[resourceGroup().location]",
         "subnetName": "[parameters('subnetName')]",
         "subnetPrefix": "[parameters('subnetPrefix')]",
@@ -327,10 +329,8 @@
             "[concat(uniqueString(concat(resourceGroup().id, variables('storageAccountSuffix'), '4')))]"
         ],
         "vhdContainerName": "dockervhd",
-        "virtualNetworkName": "[parameters('virtualNetworkName')]",
         "vmssManagersName": "swarm-manager-vmss",
         "vmssName": "swarm-worker-vmss",
-        "vnetID": "[resourceId(parameters('virtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
         "workerCount": "[parameters('workerCount')]",
         "workerVMNamePrefix": "swarm-worker",
         "workerVMSize": "[parameters('workerVMSize')]"
