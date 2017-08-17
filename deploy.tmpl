@@ -128,7 +128,14 @@
             "type": "string",
             "defaultValue": "dockerswarm-vnet",
             "metadata": {
-                "description": "The Virtual Network Name, please put exisiting VNet name here"
+                "description": "The Virtual Network Name, please put existing VNet name here"
+            }
+        },
+        "virtualNetworkResourceGroup": {
+            "type": "string",
+            "defaultValue": "neworexistingvnet",
+            "metadata": {
+                "description": "Please put VNet Resource Group name here"
             }
         },
         "subnetName": {
@@ -323,7 +330,7 @@
         "virtualNetworkName": "[parameters('virtualNetworkName')]",
         "vmssManagersName": "swarm-manager-vmss",
         "vmssName": "swarm-worker-vmss",
-        "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
+        "vnetID": "[resourceId(parameters('virtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
         "workerCount": "[parameters('workerCount')]",
         "workerVMNamePrefix": "swarm-worker",
         "workerVMSize": "[parameters('workerVMSize')]"
