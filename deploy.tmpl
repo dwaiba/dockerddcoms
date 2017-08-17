@@ -152,6 +152,13 @@
                 "description": "The Subnet Prefix, please change CIDR namespace for deploying to existing Virtual Network "
             }
         },
+        "managerAddressPrefix": {
+            "type": "string",
+            "defaultValue": "172.16.0.0/24",
+            "metadata": {
+                "description": "The Manager Address Prefix, please change CIDR namespace for deploying to existing Virtual Network "
+            }
+        },
         "workerCount": {
             "defaultValue": 3,
             "allowedValues": [
@@ -297,7 +304,7 @@
         "lbSSHPublicIPAddressName": "[concat(variables('basePrefix'), '-', variables('lbSSHName'), '-public-ip')]",
         "lbpublicIPAddress1": "[resourceId('Microsoft.Network/publicIPAddresses',variables('lbSSHPublicIPAddressName'))]",
         "lbpublicIPAddress2": "[resourceId('Microsoft.Network/publicIPAddresses',variables('lbDTRPublicIPAddressName'))]",
-        "managerAddressPrefix": "172.16.0.0/24",
+        "managerAddressPrefix": "[parameters('managerAddressPrefix')]",
         "managerCount": "[parameters('managerCount')]",
         "managerEndpointDNSNamePrefix": "manager",
         "managerFirstAddr": 5,
@@ -366,9 +373,10 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks",
+            "resourceGroupName": "[parameters('virtualNetworkResourceGroup')]",
             "name": "[variables('virtualNetworkName')]",
+            "location": "[parameters('virtualNetworkResourceGroup').location]",
             "apiVersion": "[variables('apiVersion')]",
-            "location": "[variables('storageLocation')]",
             "tags": {
                 "provider": "[toUpper(variables('DockerProviderTag'))]"
             },
