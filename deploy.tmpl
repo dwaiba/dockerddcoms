@@ -1,8 +1,6 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "type": "Microsoft.Resources/deployments",
-    "resourceGroup": "[variables('virtualNetworkResourceGroup')]",
     "parameters": {
         "ddcLicenseKey": {
             "type": "SecureString",
@@ -375,28 +373,45 @@
             }
         },
         {
-            "type": "Microsoft.Network/virtualNetworks",
-            "name": "[variables('virtualNetworkName')]",
-            "apiVersion": "[variables('apiVersion')]",
-            "tags": {
-                "provider": "[toUpper(variables('DockerProviderTag'))]"
-            },
+            "apiVersion": "2017-05-10",
+            "name": "nestedTemplate",
+            "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[variables('virtualNetworkResourceGroup')]",
             "properties": {
-                "addressSpace": {
-                    "addressPrefixes": [
-                        "[variables('subnetPrefix')]",
-                        "[variables('managerAddressPrefix')]"
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "type": "Microsoft.Network/virtualNetworks",
+                            "name": "[variables('virtualNetworkName')]",
+                            "apiVersion": "[variables('apiVersion')]",
+                            "tags": {
+                                "provider": "[toUpper(variables('DockerProviderTag'))]"
+                            },
+                            "properties": {
+                                "addressSpace": {
+                                    "addressPrefixes": [
+                                        "[variables('subnetPrefix')]",
+                                        "[variables('managerAddressPrefix')]"
+                                    ]
+                                }
+                            },
+                            "subnets": [
+                                {
+                                    "name": "[variables('subnetName')]",
+                                    "properties": {
+                                        "addressPrefix": "[variables('subnetPrefix')]"
+                                    }
+                                }
+                            ]
+                        }
                     ]
                 }
-            },
-            "subnets": [
-                {
-                    "name": "[variables('subnetName')]",
-                    "properties": {
-                        "addressPrefix": "[variables('subnetPrefix')]"
-                    }
-                }
-            ]
+            }
         },
         {
             "type": "Microsoft.Compute/virtualMachineScaleSets",
