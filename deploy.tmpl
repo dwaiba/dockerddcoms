@@ -368,6 +368,7 @@
             "type": "Microsoft.Network/virtualNetworks",
             "name": "[variables('virtualNetworkName')]",
             "apiVersion": "[variables('apiVersion')]",
+            "location": "[variables('storageLocation')]",
             "tags": {
                 "provider": "[toUpper(variables('DockerProviderTag'))]"
             },
@@ -377,16 +378,16 @@
                         "[variables('subnetPrefix')]",
                         "[variables('managerAddressPrefix')]"
                     ]
-                }
-            },
-            "subnets": [
-                {
-                    "name": "[variables('subnetName')]",
-                    "properties": {
-                        "addressPrefix": "[variables('subnetPrefix')]"
+                },
+                "subnets": [
+                    {
+                        "name": "[variables('subnetName')]",
+                        "properties": {
+                            "addressPrefix": "[variables('subnetPrefix')]"
+                        }
                     }
-                }
-            ]
+                ]
+            }
         },
         {
             "type": "Microsoft.Compute/virtualMachineScaleSets",
