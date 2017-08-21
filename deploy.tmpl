@@ -128,21 +128,14 @@
             "type": "string",
             "defaultValue": "dockerswarm-vnet",
             "metadata": {
-                "description": "The Virtual Network Name, please put existing VNet name here"
-            }
-        },
-        "virtualNetworkResourceGroup": {
-            "type": "string",
-            "defaultValue": "neworexistingvnet",
-            "metadata": {
-                "description": "Please put VNet Resource Group name here"
+                "description": "The Virtual Network Name, please put existing VNet name here if used with VNET-peering"
             }
         },
         "subnetName": {
             "type": "string",
             "defaultValue": "dockerswarm-subnet",
             "metadata": {
-                "description": "Name of the new subnet to add to new Virtual Network or exiting one"
+                "description": "Name of the new subnet to add to new Virtual Network or please put existing VNet name here if used with VNET-peering"
             }
         },
         "subnetPrefix": {
@@ -318,8 +311,7 @@
         "storageAccountDNSSuffix": ".blob.core.windows.net",
         "storageAccountSuffix": "docker",
         "virtualNetworkName": "[parameters('virtualNetworkName')]",
-        "virtualNetworkResourceGroup": "[parameters('virtualNetworkResourceGroup')]",
-        "vnetID": "[resourceId(variables('virtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
+        "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
         "storageLocation": "[resourceGroup().location]",
         "subnetName": "[parameters('subnetName')]",
         "subnetPrefix": "[parameters('subnetPrefix')]",
@@ -373,45 +365,28 @@
             }
         },
         {
-            "apiVersion": "2017-05-10",
-            "name": "nestedTemplate",
-            "type": "Microsoft.Resources/deployments",
-            "resourceGroup": "[variables('virtualNetworkResourceGroup')]",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[variables('virtualNetworkName')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "tags": {
+                "provider": "[toUpper(variables('DockerProviderTag'))]"
+            },
             "properties": {
-                "mode": "Incremental",
-                "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "parameters": {},
-                    "variables": {},
-                    "resources": [
-                        {
-                            "type": "Microsoft.Network/virtualNetworks",
-                            "name": "[variables('virtualNetworkName')]",
-                            "apiVersion": "[variables('apiVersion')]",
-                            "tags": {
-                                "provider": "[toUpper(variables('DockerProviderTag'))]"
-                            },
-                            "properties": {
-                                "addressSpace": {
-                                    "addressPrefixes": [
-                                        "[variables('subnetPrefix')]",
-                                        "[variables('managerAddressPrefix')]"
-                                    ]
-                                }
-                            },
-                            "subnets": [
-                                {
-                                    "name": "[variables('subnetName')]",
-                                    "properties": {
-                                        "addressPrefix": "[variables('subnetPrefix')]"
-                                    }
-                                }
-                            ]
-                        }
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[variables('subnetPrefix')]",
+                        "[variables('managerAddressPrefix')]"
                     ]
                 }
-            }
+            },
+            "subnets": [
+                {
+                    "name": "[variables('subnetName')]",
+                    "properties": {
+                        "addressPrefix": "[variables('subnetPrefix')]"
+                    }
+                }
+            ]
         },
         {
             "type": "Microsoft.Compute/virtualMachineScaleSets",
