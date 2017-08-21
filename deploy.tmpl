@@ -318,7 +318,8 @@
         "storageAccountDNSSuffix": ".blob.core.windows.net",
         "storageAccountSuffix": "docker",
         "virtualNetworkName": "[parameters('virtualNetworkName')]",
-        "vnetID": "[resourceId(parameters('virtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
+        "virtualNetworkResourceGroup": "[parameters('virtualNetworkResourceGroup')]",
+        "vnetID": "[resourceId(variables('virtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
         "storageLocation": "[resourceGroup().location]",
         "subnetName": "[parameters('subnetName')]",
         "subnetPrefix": "[parameters('subnetPrefix')]",
@@ -373,8 +374,9 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks",
-            "resourceGroup": "[parameters('virtualNetworkResourceGroup')]",
-            "location": "[parameters('virtualNetworkResourceGroup').location]",
+            "resourceGroup": "[variables('virtualNetworkResourceGroup')]",
+            "location": "[variables('virtualNetworkResourceGroup').location]",
+            "name": "[variables('virtualNetworkName')]",
             "apiVersion": "[variables('apiVersion')]",
             "tags": {
                 "provider": "[toUpper(variables('DockerProviderTag'))]"
