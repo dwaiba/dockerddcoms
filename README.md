@@ -1,6 +1,6 @@
 ---
 title: Deploy DDC on Azure with OMS Injection
-description: Learn how to deploy Docker Datacenter with one click, using an ARM (ARM Resource Manager) Template.
+description: Learn how to deploy Docker Datacenter with one click, using an ARM (Azure Resource Manager) Template.
 keywords: docker, datacenter, install, orchestration, management, azure, swarm, OMS
 ---
 
