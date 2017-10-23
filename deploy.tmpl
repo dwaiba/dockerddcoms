@@ -246,7 +246,7 @@
         }
     },
     "variables": {
-        "Description": "Docker for Azure 17.03.2-ee-5-azure1",
+        "Description": "Docker for Azure 17.06.1-ee-2-azure1",
         "DockerProviderTag": "8CF0E79C-DF97-4992-9B59-602DB544D354",
         "accountID": "[subscription().subscriptionId]",
         "adServicePrincipalAppID": "[parameters('adServicePrincipalAppID')]",
@@ -262,9 +262,9 @@
         "ddcLicense": "[base64(string(parameters('ddcLicenseKey')))]",
         "ddcPass": "[parameters('ddcPassword')]",
         "ddcUser": "[parameters('ddcUsername')]",
-        "ucpTag": "2.1.5",
-        "dtrTag": "2.2.7",
-        "docker": "17.03.2-ee-5",
+        "ucpTag": "2.2.2",
+        "dtrTag": "2.3.2",
+        "docker": "17.06.1-ee-2",
         "dtrLbPublicIpDnsName": "[concat('dtrlb-', variables('groupName'))]",
         "dtrStorageAccount": "[concat(uniqueString(concat(resourceGroup().id, variables('storageAccountSuffix'))), 'dtr')]",
         "dtrlbname": "[concat(variables('dtrLbPublicIpDnsName'), '.', variables('storageLocation'), '.', 'cloudapp.azure.com')]",
