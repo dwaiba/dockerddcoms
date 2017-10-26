@@ -26,7 +26,9 @@ Run
 ``sh
 docker run -dti --name=azure-cli-python --restart=always azuresdk/azure-cli-python && docker exec azure-cli-python bash -c "az login && bash"
 ``
-Then
+
+Then From the azure-cli-python container, please run the following:
+
 
 ``sh
 az group create -l westeurope -n dockeromspublicwe && az group deployment create -g dockeromspublicwe -n dockeromspublicwe --template-uri https://raw.githubusercontent.com/dwaiba/dockerddcoms/master/deploy.tmpl --parameters "{\"ddcLicenseKey\":{\"value\":\"<<YOUR DDC License KEY Contents>>\"},\"ddcPassword\":{\"value\":\"<<YOUR UCP GUI Password>>\"},\"adServicePrincipalAppID\":{\"value\":\"64c9911a-4472-42f6-bc2f-aa282a98b58\"},\"adServicePrincipalAppSecret\":{\"value\":\"2zfT3FOZblJMeGIaKb2yF0IDWqJcGLAZ\"},\"managerCount\":{\"value\":3},\"managerVMSize\":{\"value\":\"Standard_D1_v2\"},\"sshPublicKey\":{\"value\":\"<<your public SSH KEY>>\"},\"OMSWorkSpaceId\":{\"value\":\"<<Your OMS Workspace ID>>\"},\"OMSWorkSpaceKey\":{\"value\":\"<<your Workspace key>>\"},\"workerCount\":{\"value\":3},\"workerVMSize\":{\"value\":\"Standard_D1_v2\"}}" --debug
